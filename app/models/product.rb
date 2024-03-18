@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :category
 
+  has_one_attached :image
+
   def self.ransackable_associations(auth_object = nil)
     ["category"]
   end
