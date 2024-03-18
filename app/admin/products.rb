@@ -16,10 +16,11 @@ ActiveAdmin.register Product do
   # end
 
   ActiveAdmin.register Product do
-    actions :index, :edit, :update, :create, :destroy
+    actions :index, :edit, :update, :create, :new, :destroy
 
     permit_params :product_name, :description, :price, :stock_quantity, :image, :category_id
   end
+
   form do |f|
     f.inputs 'Product Details' do
       f.input :product_name
@@ -31,4 +32,5 @@ ActiveAdmin.register Product do
     end
     f.actions
   end
+
 end

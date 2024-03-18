@@ -16,8 +16,9 @@ ActiveAdmin.register User do
   # end
 
   ActiveAdmin.register User do
-    actions :index, :edit, :update, :create, :destroy
+    actions :index, :edit, :update, :create, :new, :destroy
 
-    permit_params :first_name, :last_name, :password_digest, :email, :address, :phone_number, :role
+    permit_params :first_name, :last_name, :email, :address, :phone_number, :role
   end
+
 end
