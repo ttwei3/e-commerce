@@ -33,4 +33,16 @@ ActiveAdmin.register Product do
     f.actions
   end
 
+  show do
+    attributes_table do
+      row :image do |product|
+        if product.image.attached?
+          image_tag url_for(product.image), size: "150x150"
+        else
+          text_node "No image available"
+        end
+      end
+    end
+  end
+
 end
