@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_18_221119) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_18_233301) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -128,6 +128,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_18_221119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "static_pages", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "identifier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
