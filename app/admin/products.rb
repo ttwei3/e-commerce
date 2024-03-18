@@ -21,6 +21,30 @@ ActiveAdmin.register Product do
     permit_params :product_name, :description, :price, :stock_quantity, :image, :category_id
   end
 
+  index do
+    selectable_column
+    id_column
+    column :product_name
+    column :description
+    column :price
+    column :stock_quantity
+    column :category_id
+    column "Image" do |product|
+      if product.image.attached?
+        image_tag product.image.variant(resize_to_limit: [100, 100])
+      else
+        "No Image"
+      end
+    end
+    actions
+  end
+
+  filter :product_name
+  filter :stock_quantity
+  filter :description
+  filter :price
+  filter :category_id
+
   form do |f|
     f.inputs 'Product Details' do
       f.input :product_name
@@ -28,21 +52,27 @@ ActiveAdmin.register Product do
       f.input :price
       f.input :stock_quantity
       f.input :image, as: :file
-      f.input :category, as: :select, collection: Category.all.collect { |c| [c.categoty_name, c.id] }
+      f.input :category, as: :select, collection: Category.all.collect { |c| [c.category_name, c.id] }
     end
     f.actions
   end
 
   show do
     attributes_table do
+      row :product_name
+      row :description
+      row :price
+      row :stock_quantity
+      column :category_id
       row :image do |product|
         if product.image.attached?
-          image_tag url_for(product.image), size: "150x150"
+          image_tag url_for(product.image), width: "50%"
         else
-          text_node "No image available"
+          "No image attached"
         end
       end
     end
   end
+
 
 end
