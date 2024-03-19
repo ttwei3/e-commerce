@@ -1,6 +1,8 @@
 <section>
   <div>
     <h1>Products</h1>
+    <%= link_to 'Newly Added Products', products_path(filter: 'newly_added') %>
+    <%= link_to 'Recently Updated Products', products_path(filter: 'recently_updated') %>
     <div>
       <% @products.each do |product| %>
         <div>

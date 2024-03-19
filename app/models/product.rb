@@ -14,4 +14,9 @@ class Product < ApplicationRecord
   def has_image?
     image.attached?
   end
+
+  scope :newly_added, -> { where('created_at >= ?', 3.days.ago) }
+
+  scope :recently_updated, -> { where('updated_at >= ? AND created_at < ?', 3.days.ago, 3.days.ago) }
+
 end
