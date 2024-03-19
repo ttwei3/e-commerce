@@ -11,4 +11,13 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :products
+
+  get '/static_pages/:identifier', to: 'static_pages#show', as: :static_page
+
+
+  namespace :admin do
+    resources :static_pages
+  end
+
+  root 'products#index'
 end
