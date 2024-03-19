@@ -4,17 +4,34 @@
     <%= link_to 'Newly Added Products', products_path(filter: 'newly_added') %>
     <%= link_to 'Recently Updated Products', products_path(filter: 'recently_updated') %>
     <div>
-      <% @products.each do |product| %>
+      <%= form_with(url: products_path, method: :get, local: true) do |form| %>
         <div>
-          <% if product.image.attached? %>
-            <%= image_tag(product.image) %>
-          <% end %>
+          <%= form.label :keyword, "Search by keyword" %>
+          <%= form.text_field :keyword %>
+          <%= form.label :category_id, "Select a category" %>
+          <%= form.collection_select :category_id, Category.all, :id, :category_name, prompt: "Category" %>
+          <%= form.submit "Search" %>
         </div>
+      <% end %>
+      <% if @products.empty? %>
         <div>
-          <p>
-            <%= link_to product.product_name, product_path(product) %>
-          </p>
+          <div>
+            <p>No products found matching your search criteria.</p>
+          </div>
         </div>
+      <% else %>
+        <% @products.each do |product| %>
+          <div>
+            <% if product.image.attached? %>
+              <%= image_tag(product.image) %>
+            <% end %>
+          </div>
+          <div>
+            <p>
+              <%= link_to product.product_name, product_path(product) %>
+            </p>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <%= paginate @products %>
