@@ -14,7 +14,6 @@ Rails.application.routes.draw do
 
   get '/static_pages/:identifier', to: 'static_pages#show', as: :static_page
 
-
   namespace :admin do
     resources :static_pages
   end
