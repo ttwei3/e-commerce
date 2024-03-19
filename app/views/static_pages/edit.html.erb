@@ -1,6 +1,6 @@
 <!--app/views/static_pages/edit.html.erb-->
-<% if @static_page.present? %>
-  <%= form_for [@static_page.becomes(StaticPage)], url: resource_url, as: resource_name, html: { method: :put, multipart: true } do |f| %>
+<% if @page.present? %>
+  <%= form_for [@page.becomes(StaticPage)], url: resource_url, as: resource_name, html: { method: :put, multipart: true } do |f| %>
     <%= f.error_notification %>
     <% f.inputs %>
     <%= f.actions %>

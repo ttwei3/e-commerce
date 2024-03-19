@@ -1,6 +1,11 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.includes(:category).page(params[:page]).per(6)
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @products = @category.products.page(params[:page]).per(6)
+    else
+      @products = Product.page(params[:page]).per(6)
+    end
   end
 
   def show

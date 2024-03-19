@@ -15,6 +15,7 @@ StaticPage.create(
     <p>At Naian Bearing, we pride ourselves on being a leading manufacturer and distributor of high-quality bearings, serving diverse industries with excellence since 2006. Our unwavering commitment to precision engineering, top-notch materials, and exceptional customer service has made us a trusted partner for businesses worldwide.</p>
   HTML
 )
+
 StaticPage.create(
   title: 'Contact Us',
   identifier: 'contact',
