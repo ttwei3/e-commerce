@@ -19,4 +19,6 @@ ActiveAdmin.register Category do
 
     permit_params :category_name
   end
+
+  filter :category_name
 end

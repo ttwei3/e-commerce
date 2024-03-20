@@ -1,5 +1,11 @@
 <section>
   <div>
+    <h1>Category</h1>
+    <ul>
+      <% Category.all.each do |category| %>
+        <li><%= link_to category.category_name, category_products_path(category) %></li>
+      <% end %>
+    </ul>
     <h1>Products</h1>
     <%= link_to 'Newly Added Products', products_path(filter: 'newly_added') %>
     <%= link_to 'Recently Updated Products', products_path(filter: 'recently_updated') %>

@@ -21,13 +21,6 @@
       </div>
     </nav>
 
-    <h1>Category</h1>
-    <ul>
-      <% Category.all.each do |category| %>
-        <li><%= link_to category.category_name, category_products_path(category) %></li>
-      <% end %>
-    </ul>
-
     <%= yield %>
   </body>
 </html>
