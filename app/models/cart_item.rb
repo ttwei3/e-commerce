@@ -1,4 +1,18 @@
-class CartItem < ApplicationRecord
-  belongs_to :cart
-  belongs_to :product
+class CartItemTest
+  attr_reader :product_id
+  attr_accessor :quantity
+
+  def initialize(product_id, quantity =1)
+    @product_id = product_id
+    @quantity = quantity
+  end
+
+  def increment_quantity
+    @quantity += 1
+  end
+
+  def total_price
+    product = Product.find(product_id)
+    product.price * quantity
+  end
 end
