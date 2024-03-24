@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :products
+  resources :products do
+    post 'add_to_cart', on: :member
+  end
 
   get '/static_pages/:identifier', to: 'static_pages#show', as: :static_page
 
@@ -22,5 +24,12 @@ Rails.application.routes.draw do
 
   resources :categories do
     resources :products, only: [:index]
+  end
+
+  get '/cart', to: 'carts#index'
+
+  resources :carts do
+    patch 'update_item', on: :collection
+    delete 'remove_item', on: :collection
   end
 end
