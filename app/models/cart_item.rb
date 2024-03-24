@@ -1,4 +1,4 @@
-class CartItemTest
+class CartItem
   attr_reader :product_id
   attr_accessor :quantity
 
@@ -7,8 +7,8 @@ class CartItemTest
     @quantity = quantity
   end
 
-  def increment_quantity
-    @quantity += 1
+  def increment_quantity(by_amount = 1)
+    @quantity += by_amount
   end
 
   def total_price

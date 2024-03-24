@@ -27,4 +27,20 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
   end
+
+  def add_to_cart
+    product_id = params[:id].to_i
+    quantity = params[:quantity].to_i
+
+    cart = current_cart
+    cart.add_product(product_id, quantity)
+    session[:cart] = cart.serialize
+    redirect_to carts_path
+  end
+
+  private
+
+  def current_cart
+    Cart.new(session[:cart] || [])
+  end
 end
