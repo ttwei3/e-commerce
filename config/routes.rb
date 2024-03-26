@@ -33,4 +33,6 @@ Rails.application.routes.draw do
     patch 'update_item', on: :collection
     delete 'remove_item', on: :collection
   end
+
+  devise_for :users
 end
