@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   validates :email, uniqueness: true
+  belongs_to :province
 
+  attr_accessor :city, :postal_code, :province_id
   def self.ransackable_associations(auth_object = nil)
     []
   end
