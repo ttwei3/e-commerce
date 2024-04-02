@@ -32,6 +32,8 @@ class CartsController < ApplicationController
   private
 
   def current_cart
-    Cart.new(session[:cart] || [])
+    session[:cart] ||= []
+    cart_data = session[:cart]
+    cart_data.is_a?(Array) ? Cart.new(cart_data) : Cart.new
   end
 end
