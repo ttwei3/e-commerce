@@ -33,4 +33,6 @@ Rails.application.routes.draw do
     patch 'update_item', on: :collection
     delete 'remove_item', on: :collection
   end
+
+  resources :orders, only: [:index, :new, :create]
 end

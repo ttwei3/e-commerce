@@ -1,19 +1,16 @@
-<section>
+<!--app/views/products/show.html.erb-->
+<div>
+  <h1><%= @product.product_name %></h1>
   <div>
-    <h1><%= @product.product_name %></h1>
-    <div>
+    <p><strong>Description:</strong> <%= @product.description %></p>
+    <p><strong>Price:</strong> <%= @product.price %></p>
+    <p><strong>Stock Quantity:</strong> <%= @product.stock_quantity %></p>
+    <p><strong>Category:</strong> <%= @product.category.category_name if @product.category %></p>
+    <% if @product.image.attached? %>
       <div>
-        <p><strong>Description:</strong> <%= @product.description %></p>
-        <p><strong>Price:</strong> <%= @product.price %></p>
-        <p><strong>Stock Quantity:</strong> <%= @product.stock_quantity %></p>
-        <p><strong>Category:</strong> <%= @product.category.category_name if @product.category %></p>
+        <%= image_tag(@product.image) %>
       </div>
-      <% if @product.image.attached? %>
-        <div>
-          <%= image_tag(@product.image) %>
-        </div>
-      <% end %>
-    </div>
-    <%= link_to 'Back to Products', products_path %>
+    <% end %>
   </div>
-</section>
+  <%= link_to 'Back to Products', products_path %>
+</div>
