@@ -35,6 +35,10 @@ Rails.application.routes.draw do
     get 'checkout', on: :collection
   end
 
-  resources :orders
+  resources :orders do
+    collection do
+      get 'review'
+    end
+  end
 
 end

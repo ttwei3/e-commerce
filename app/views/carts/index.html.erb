@@ -3,6 +3,7 @@
 
 <% if @cart_items.empty? %>
   <p>Your shopping cart is empty.</p>
+  <%= link_to 'Back to Products', products_path %>
 <% else %>
   <table>
     <thead>
@@ -35,6 +36,7 @@
       <% end %>
     </tbody>
   </table>
+  <%= link_to 'Back to Products', products_path %>
   <p>Subtotal: <%= number_to_currency(@cart.subtotal_price) %></p>
   <%= link_to 'Checkout', checkout_carts_path, class: "button", method: :get %>
 <% end %>

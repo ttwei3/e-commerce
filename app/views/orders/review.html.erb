@@ -1,0 +1,40 @@
+<div class="order_summary">
+  <h1>Order Summary</h2>
+  <div class="shipping-address">
+    <h2>Shipping Address</h2>
+    <p><%= current_user.email %></p>
+    <p><%= current_user.address %></p>
+    <p><%= current_user.city %>, <%= current_user.province.name %> <%= current_user.postal_code %></p>
+    <%= link_to 'Change', edit_user_registration_path %>
+  </div>
+  <div class="order-details">
+    <h2>Order Details</h2>
+    <% @cart_items.each do |cart_item| %>
+      <div class="item">
+        <h3><%= cart_item.product.product_name %></h3>
+        <p>Price: <%= number_to_currency(cart_item.product.price) %></p>
+        <p>Quantity: <%= cart_item.quantity %></p>
+        <p>Subtotal: <%= number_to_currency(cart_item.total_price) %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <h4>Taxes:</h4>
+    <p>GST: <%= @tax_details[:gst] %></p>
+    <p>PST: <%= @tax_details[:pst] %></p>
+    <p>HST: <%= @tax_details[:hst] %></p>
+  </div>
+
+  <div>
+    <h4>Total:</h4>
+    <p>Subtotal: <%= @cart.subtotal_price %></p>
+    <p>Tax: <%= @tax_details[:total_tax] %></p>
+    <p>Grand Total: <%= @tax_details[:grand_total] %></p>
+  </div>
+
+  <div class="checkout-button">
+    <%= button_to "Proceed to Checkout", new_order_path, method: :get %>
+  </div>
+
+</div>

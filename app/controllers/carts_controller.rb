@@ -32,7 +32,7 @@ class CartsController < ApplicationController
   end
 
   def checkout
-    redirect_to orders_path
+    redirect_to review_orders_path
   end
 
   private
