@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  before_action :authenticate_user!, only: [:checkout]
+
   def index
     @cart = current_cart
     @cart_items = @cart.cart_items
@@ -27,6 +29,10 @@ class CartsController < ApplicationController
     session[:cart] = cart.serialize
 
     redirect_to carts_path
+  end
+
+  def checkout
+    redirect_to orders_path
   end
 
   private

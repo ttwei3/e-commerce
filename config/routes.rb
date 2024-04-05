@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   resources :carts do
     patch 'update_item', on: :collection
     delete 'remove_item', on: :collection
+    get 'checkout', on: :collection
   end
+
+  resources :orders
 
 end

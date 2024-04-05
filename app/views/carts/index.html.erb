@@ -1,3 +1,4 @@
+<!--app/views/carts/index.html.erb-->
 <h2>Your Shopping Cart</h2>
 
 <% if @cart_items.empty? %>
@@ -35,5 +36,5 @@
     </tbody>
   </table>
   <p>Subtotal: <%= number_to_currency(@cart.subtotal_price) %></p>
-  <button class=“button”>Checkout</button>
+  <%= link_to 'Checkout', checkout_carts_path, class: "button", method: :get %>
 <% end %>
