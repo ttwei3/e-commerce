@@ -11,6 +11,10 @@ class CartItem
     @quantity += by_amount
   end
 
+  def product
+    Product.find(product_id)
+  end
+
   def total_price
     product = Product.find(product_id)
     product.price * quantity

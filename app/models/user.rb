@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
 
   belongs_to :province
+  has_many :orders
 
   def self.ransackable_associations(auth_object = nil)
     []

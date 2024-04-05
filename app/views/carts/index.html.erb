@@ -34,4 +34,6 @@
       <% end %>
     </tbody>
   </table>
+  <p>Subtotal: <%= number_to_currency(@cart.subtotal_price) %></p>
+  <button class=“button”>Checkout</button>
 <% end %>

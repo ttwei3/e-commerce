@@ -2,6 +2,7 @@ class Cart
   attr_reader :cart_items
 
   def initialize(cart_items = [])
+    cart_items ||= []
     @cart_items = cart_items.map { |item|
       CartItem.new(item["product_id"], item["quantity"])
     }
@@ -29,5 +30,9 @@ class Cart
 
   def serialize
     @cart_items.map { |item| {"product_id" => item.product_id, "quantity" => item.quantity} }
+  end
+
+  def subtotal_price
+    @cart_items.sum { |item| item.quantity * item.product.price }
   end
 end
