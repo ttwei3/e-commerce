@@ -1,20 +1,49 @@
-<!--app/views/products/index.html.erb-->
-<%= render 'categories/categories' %>
-
-<h1>Products</h1>
-<%= link_to 'Newly Added Products', products_path(filter: 'newly_added') %>
-<%= link_to 'Recently Updated Products', products_path(filter: 'recently_updated') %>
-
-<%= render 'products/search_form' %>
-
-<% if @products.empty? %>
+<section>
   <div>
-    <p>No products found matching your search criteria.</p>
+    <h1>Category</h1>
+    <ul>
+      <% Category.all.each do |category| %>
+        <li><%= link_to category.category_name, category_products_path(category) %></li>
+      <% end %>
+    </ul>
+    <h1>Products</h1>
+    <%= link_to 'Newly Added Products', products_path(filter: 'newly_added') %>
+    <%= link_to 'Recently Updated Products', products_path(filter: 'recently_updated') %>
+    <div>
+      <%= form_with(url: products_path, method: :get, local: true) do |form| %>
+        <div>
+          <%= form.label :keyword, "Search by keyword" %>
+          <%= form.text_field :keyword %>
+          <%= form.label :category_id, "Select a category" %>
+          <%= form.collection_select :category_id, Category.all, :id, :category_name, prompt: "Category" %>
+          <%= form.submit "Search" %>
+        </div>
+      <% end %>
+      <% if @products.empty? %>
+        <div>
+          <div>
+            <p>No products found matching your search criteria.</p>
+          </div>
+        </div>
+      <% else %>
+        <% @products.each do |product| %>
+          <div>
+            <% if product.image.attached? %>
+              <%= image_tag(product.image) %>
+            <% end %>
+          </div>
+          <div>
+            <p>
+              <%= link_to product.product_name, product_path(product) %>
+            </p>
+            <%= form_with url: add_to_cart_product_path(product), method: :post, local: true do |form| %>
+              <%= form.number_field :quantity, in: 1..5000, value: 1, class: "quantity-input" %>
+              <%= form.submit 'Add to Cart' %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <%= paginate @products %>
   </div>
-<% else %>
-  <% @products.each do |product| %>
-    <%= render 'products/product', product: product %>
-  <% end %>
-<% end %>
-
-<%= paginate @products %>
+</section>

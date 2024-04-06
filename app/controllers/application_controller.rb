@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:address, :city, :postal_code, :province_id])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:address, :city, :postal_code, :province_id])
+    added_attrs = [:first_name, :last_name, :phone_number, :address, :city, :postal_code, :province_id]
+    devise_parameter_sanitizer.permit(:sign_up, keys: added_attrs)
+    devise_parameter_sanitizer.permit(:account_update, keys: added_attrs)
   end
 
   helper_method :current_cart
