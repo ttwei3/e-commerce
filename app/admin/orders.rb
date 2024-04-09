@@ -48,5 +48,14 @@ ActiveAdmin.register Order do
     end
   end
 
+  action_item :ship, only: :show, if: proc { order.order_status != 'shipped' } do
+    link_to 'Mark as Shipped', ship_admin_order_path(order), method: :put
+  end
+
+  member_action :ship, method: :put do
+    order = Order.find(params[:id])
+    order.update(order_status: 'shipped')
+    redirect_to admin_order_path(order), notice: "Order marked as shipped."
+  end
 
 end
