@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
     @user = current_user
     @cart = current_cart
     @tax_details = calculate_taxes(@user)
+    @orders = current_user.orders.includes(:order_items => :product).order(created_at: :desc)
   end
 
   def review
