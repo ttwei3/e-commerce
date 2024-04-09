@@ -73,3 +73,5 @@ gem "devise", "~> 4.9"
 gem "sassc-rails", "~> 2.1"
 
 gem "kaminari", "~> 1.2"
+
+gem "stripe", "~> 10.14"
