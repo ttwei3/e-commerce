@@ -39,6 +39,10 @@ Rails.application.routes.draw do
     collection do
       get 'review'
     end
+    member do
+      patch 'cancel'
+    end
   end
 
+  resources :payments
 end

@@ -37,6 +37,16 @@ class OrdersController < ApplicationController
     end
   end
 
+  def cancel
+    @order = current_user.orders.find(params[:id])
+    if @order.status_new?
+      @order.status_cancelled!
+      flash[:notice] = 'Order was successfully cancelled.'
+    else
+      flash[:alert] = 'Only new orders can be cancelled.'
+    end
+    redirect_to orders_path
+  end
 
   private
 

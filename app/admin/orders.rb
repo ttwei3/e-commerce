@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
-  permit_params :user_id, :total_price, :province_id
+  permit_params :user_id, :total_price, :province_id, :order_status
 
   index do
     selectable_column
@@ -8,6 +8,9 @@ ActiveAdmin.register Order do
     column "Customer", :user
     column :total_price
     column :province
+    column :status do |order|
+      status_tag order.order_status
+    end
     actions
   end
 
@@ -25,6 +28,9 @@ ActiveAdmin.register Order do
       end
       row "Grand Total (Including Taxes)" do |order|
         number_to_currency(order.total_price)
+      end
+      row :status do |order|
+        status_tag order.order_status
       end
     end
 

@@ -6,6 +6,8 @@ class Order < ApplicationRecord
 
   validates :total_price, numericality: true
 
+  enum order_status: { new: 'new', paid: 'paid', shipped: 'shipped', cancelled: 'cancelled' }, _prefix: :status
+
   def self.ransackable_associations(auth_object = nil)
     ['user', 'province', 'order_items']
   end

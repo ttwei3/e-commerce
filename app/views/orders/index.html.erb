@@ -3,7 +3,7 @@
 <% @orders.each do |order| %>
   <div class="order-summary">
     <h2>Order ID: <%= order.id %></h2>
-
+    <p>Status: <%= order.order_status.capitalize %></p>
     <h3>Order Items:</h3>
     <ul>
       <% order.order_items.each do |item| %>
@@ -15,6 +15,8 @@
     <p>Total Tax: <%= number_to_currency(order.calculate_total_tax) %></p>
     <p>Grand Total: <%= number_to_currency(order.total_price) %></p>
     <p>Order Date: <%= order.created_at.strftime("%Y-%m-%d") %></p>
+    <% if order.status_new? %>
+      <%= button_to 'Cancel Order', cancel_order_path(order), method: :patch %>
+    <% end %>
   </div>
-  <hr>
 <% end %>
