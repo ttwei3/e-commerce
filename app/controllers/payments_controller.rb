@@ -2,7 +2,6 @@
 class PaymentsController < ApplicationController
   before_action :set_order
 
-  # 初始化创建支付意图
   def new
     intent = Stripe::PaymentIntent.create({
       amount: (@order.total_price * 100).to_i,
@@ -11,7 +10,6 @@ class PaymentsController < ApplicationController
     })
     @client_secret = intent.client_secret
 
-    # 为了确保 payment_intent_id 能够在 create 方法中使用，可以考虑立即存储它
     @payment = @order.build_payment(
       payment_amount: @order.total_price,
       payment_intent_id: intent.id
@@ -20,7 +18,7 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @payment = @order.payment  # 从订单中获取已经创建的支付记录
+    @payment = @order.payment
 
     if @payment.save
       render json: { client_secret: @client_secret }
@@ -30,7 +28,7 @@ class PaymentsController < ApplicationController
   end
 
   def complete
-    payment_intent_id = params[:payment_intent_id]  # 从请求参数中获取 payment_intent_id
+    payment_intent_id = params[:payment_intent_id]  
 
     intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
     if intent && intent.status == 'succeeded'
