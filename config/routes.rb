@@ -42,7 +42,11 @@ Rails.application.routes.draw do
     member do
       patch 'cancel'
     end
+    resources :payments, only: [:new, :create] do
+      member do
+        patch :complete
+      end
+    end
   end
 
-  resources :payments
 end

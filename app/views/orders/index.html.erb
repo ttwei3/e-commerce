@@ -17,6 +17,7 @@
     <p>Order Date: <%= order.created_at.strftime("%Y-%m-%d") %></p>
     <% if order.status_new? %>
       <%= button_to 'Cancel Order', cancel_order_path(order), method: :patch %>
+      <%= link_to 'Pay', new_order_payment_path(order), method: :get %>
     <% end %>
   </div>
 <% end %>

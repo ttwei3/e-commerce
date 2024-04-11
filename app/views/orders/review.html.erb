@@ -32,16 +32,16 @@
 
     <div>
       <h4>Taxes:</h4>
-      <p>GST: <%= @tax_details[:gst] %></p>
-      <p>PST: <%= @tax_details[:pst] %></p>
-      <p>HST: <%= @tax_details[:hst] %></p>
+      <p>GST: $<%= @tax_details[:gst] %></p>
+      <p>PST: $<%= @tax_details[:pst] %></p>
+      <p>HST: $<%= @tax_details[:hst] %></p>
     </div>
 
     <div>
       <h4>Total:</h4>
-      <p>Subtotal: <%= @cart.subtotal_price %></p>
-      <p>Tax: <%= @tax_details[:total_tax] %></p>
-      <p>Grand Total: <%= @tax_details[:grand_total] %></p>
+      <p>Subtotal: $<%= @cart.subtotal_price %></p>
+      <p>Tax: $<%= @tax_details[:total_tax] %></p>
+      <p>Grand Total: $<%= @tax_details[:grand_total] %></p>
     </div>
     <%= hidden_field_tag 'order[total_price]', @tax_details[:grand_total] %>
     <%= form.submit "Place Order" %>

@@ -3,13 +3,14 @@ class Order < ApplicationRecord
   belongs_to :province
 
   has_many :order_items, dependent: :destroy
+  has_one :payment, dependent: :destroy
 
   validates :total_price, numericality: true
 
-  enum order_status: { new: 'new', paid: 'paid', shipped: 'shipped', cancelled: 'cancelled' }, _prefix: :status
+  enum order_status: { new: 'new', paid: 'paid', unpaid: 'unpaid', shipped: 'shipped', cancelled: 'cancelled' }, _prefix: :status
 
   def self.ransackable_associations(auth_object = nil)
-    ['user', 'province', 'order_items']
+    super + ['payment']
   end
 
   def self.ransackable_attributes(auth_object = nil)

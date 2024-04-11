@@ -1,5 +1,8 @@
 class Cart
+  include ActiveModel::Model
   attr_reader :cart_items
+
+  validates :user_id, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 
   def initialize(cart_items = [])
     cart_items ||= []

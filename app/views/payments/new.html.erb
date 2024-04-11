@@ -1,0 +1,57 @@
+<!-- app/views/payments/new.html.erb -->
+<%= form_with url: order_payments_path(@order), method: :post, id: 'payment-form', local: false, data: { complete_url_template: complete_order_payment_path(@order, "PAYMENT_ID_PLACEHOLDER") } do |form| %>
+  <div id="card-element">
+  </div>
+  <button type="submit">Submit Payment</button>
+<% end %>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  var stripe = Stripe('<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>');
+
+  var elements = stripe.elements();
+
+  var card = elements.create('card');
+  card.mount('#card-element');
+
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.confirmCardPayment('<%= @client_secret %>', {
+    payment_method: {
+      card: card,
+      billing_details: {
+      }
+    }
+  }).then(function(result) {
+    if (result.error) {
+      console.error(result.error.message);
+    } else {
+      if (result.paymentIntent.status === 'succeeded') {
+        var paymentIntentId = result.paymentIntent.id;
+        var completeUrlTemplate = document.getElementById('payment-form').dataset.completeUrlTemplate;
+        var completeUrl = completeUrlTemplate.replace("PAYMENT_ID_PLACEHOLDER", paymentIntentId);
+
+        fetch(completeUrl, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector("[name='csrf-token']").content
+          },
+          body: JSON.stringify({ payment_intent_id: paymentIntentId })
+        }).then(function(response) {
+          return response.json();
+        }).then(function(jsonResponse) {
+          if (jsonResponse.success) {
+            alert('Payment successful!');
+            window.location.href = "<%= order_path(@order) %>";
+          } else {
+            alert('Payment failed: ' + jsonResponse.error);
+          }
+        });
+      }
+    }
+  });
+});
+</script>

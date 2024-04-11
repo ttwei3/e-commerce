@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
 
     if @order.save
       session.delete(:cart)
-      redirect_to @order
+      redirect_to new_order_payment_path(@order)
     else
       render :review
     end
@@ -46,6 +46,13 @@ class OrdersController < ApplicationController
       flash[:alert] = 'Only new orders can be cancelled.'
     end
     redirect_to orders_path
+  end
+
+  def show
+    @order = current_user.orders.find_by(id: params[:id])
+    unless @order
+      redirect_to orders_path, alert: "Order not found."
+    end
   end
 
   private

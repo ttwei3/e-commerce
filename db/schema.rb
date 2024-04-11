@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_09_002100) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_11_200149) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -112,9 +112,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_002100) do
   create_table "payments", force: :cascade do |t|
     t.integer "order_id", null: false
     t.decimal "payment_amount"
-    t.datetime "payment_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_intent_id"
     t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
