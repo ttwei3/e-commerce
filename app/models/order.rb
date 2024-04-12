@@ -2,6 +2,8 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :province
 
+  has_many :products, through: :order_items
+
   has_many :order_items, dependent: :destroy
   has_one :payment, dependent: :destroy
 
