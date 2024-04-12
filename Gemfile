@@ -75,3 +75,7 @@ gem "sassc-rails", "~> 2.1"
 gem "kaminari", "~> 1.2"
 
 gem "stripe", "~> 10.14"
+
+gem "image_processing", "~> 1.12"
+
+gem "bootstrap", "~> 5.3"

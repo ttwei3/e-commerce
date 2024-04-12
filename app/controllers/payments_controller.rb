@@ -28,7 +28,7 @@ class PaymentsController < ApplicationController
   end
 
   def complete
-    payment_intent_id = params[:payment_intent_id]  
+    payment_intent_id = params[:payment_intent_id]
 
     intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
     if intent && intent.status == 'succeeded'

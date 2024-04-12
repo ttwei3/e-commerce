@@ -1,10 +1,16 @@
 <!--app/views/products/_search_form.html.erb-->
-<%= form_with(url: products_path, method: :get, local: true) do |form| %>
-  <div>
-    <%= form.label :keyword, "Search by keyword" %>
-    <%= form.text_field :keyword %>
-    <%= form.label :category_id, "Select a category" %>
-    <%= form.collection_select :category_id, Category.all, :id, :category_name, prompt: "Category" %>
-    <%= form.submit "Search" %>
+<%= form_with(url: products_path, method: :get, local: true, class: "form-inline") do |form| %>
+  <div class="mb-3">
+    <%= form.label :keyword, "Search by keyword", class: "form-label me-2" %>
+    <%= form.text_field :keyword, class: "form-control me-2", placeholder: "Keyword" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :category_id, "Select a category", class: "form-label me-2" %>
+    <%= form.collection_select :category_id, Category.all, :id, :category_name, { prompt: "Category" }, { class: "form-select me-2" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Search", class: "btn btn-primary" %>
   </div>
 <% end %>

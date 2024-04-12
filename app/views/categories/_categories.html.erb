@@ -1,7 +1,13 @@
 <!--app/views/categories/_categories.html.erb-->
-<h1>Category</h1>
-<ul>
-  <% Category.all.each do |category| %>
-    <li><%= link_to category.category_name, category_products_path(category) %></li>
-  <% end %>
-</ul>
+<div class="card">
+  <div class="card-header">
+    <h3>Categories</h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <% Category.all.each do |category| %>
+      <li class="list-group-item">
+        <%= link_to category.category_name, category_products_path(category) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

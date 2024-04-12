@@ -1,50 +1,57 @@
-<% if flash[:alert] %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
-<div class="order_summary">
-  <h1>Order Summary</h1>
-  <div class="shipping-address">
-    <h2>Shipping Address</h2>
-    <p>Full Name: <%= current_user.first_name %> <%= current_user.last_name %></p>
-    <p>Email: <%= current_user.email %></p>
-    <p>Phone Number: <%= current_user.phone_number %></p>
-    <p>Address: <%= current_user.address %></p>
-    <p>City: <%= current_user.city %></p>
-    <p>Province: <%= current_user.province.name %></p>
-    <p>Postal Code: <%= current_user.postal_code %></p>
-    <%= link_to 'Change', edit_user_registration_path %>
-  </div>
-
-  <%= form_with url: orders_path, method: :post, data: { turbo: false } do |form| %>
-    <div class="order-details">
-      <h2>Order Details</h2>
-      <% @cart_items.each do |cart_item| %>
-        <div class="item">
-          <h3><%= cart_item.product.product_name %></h3>
-          <p>Price: <%= number_to_currency(cart_item.product.price) %></p>
-          <p>Quantity: <%= cart_item.quantity %></p>
-          <p>Subtotal: <%= number_to_currency(cart_item.total_price) %></p>
-        </div>
-      <% end %>
+<!-- app/views/orders/review.html.erb -->
+<div class="container mt-4">
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
     </div>
-
-    <div>
-      <h4>Taxes:</h4>
-      <p>GST: $<%= @tax_details[:gst] %></p>
-      <p>PST: $<%= @tax_details[:pst] %></p>
-      <p>HST: $<%= @tax_details[:hst] %></p>
-    </div>
-
-    <div>
-      <h4>Total:</h4>
-      <p>Subtotal: $<%= @cart.subtotal_price %></p>
-      <p>Tax: $<%= @tax_details[:total_tax] %></p>
-      <p>Grand Total: $<%= @tax_details[:grand_total] %></p>
-    </div>
-    <%= hidden_field_tag 'order[total_price]', @tax_details[:grand_total] %>
-    <%= form.submit "Place Order" %>
   <% end %>
 
+  <h1>Order Summary</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="shipping-address bg-white p-3 rounded mb-3">
+        <h2>Shipping Address</h2>
+        <p>Full Name: <%= current_user.first_name %> <%= current_user.last_name %></p>
+        <p>Email: <%= current_user.email %></p>
+        <p>Phone Number: <%= current_user.phone_number %></p>
+        <p>Address: <%= current_user.address %></p>
+        <p>City: <%= current_user.city %></p>
+        <p>Province: <%= current_user.province.name %></p>
+        <p>Postal Code: <%= current_user.postal_code %></p>
+        <%= link_to 'Change', edit_user_registration_path, class: 'btn btn-outline-primary' %>
+      </div>
+
+      <%= form_with url: orders_path, method: :post, data: { turbo: false } do |form| %>
+        <div class="order-details bg-white p-3 rounded">
+          <h2>Order Details</h2>
+          <% @cart_items.each do |cart_item| %>
+            <div class="item mb-3">
+              <h3><%= cart_item.product.product_name %></h3>
+              <p>Price: <%= number_to_currency(cart_item.product.price) %></p>
+              <p>Quantity: <%= cart_item.quantity %></p>
+              <p>Subtotal: <%= number_to_currency(cart_item.total_price) %></p>
+            </div>
+          <% end %>
+
+          <div class="tax-details mt-3">
+            <h4>Taxes:</h4>
+            <p>GST: $<%= @tax_details[:gst] %></p>
+            <p>PST: $<%= @tax_details[:pst] %></p>
+            <p>HST: $<%= @tax_details[:hst] %></p>
+          </div>
+
+          <div class="total-details mt-2">
+            <h4>Total:</h4>
+            <p>Subtotal: $<%= @cart.subtotal_price %></p>
+            <p>Tax: $<%= @tax_details[:total_tax] %></p>
+            <p>Grand Total: $<%= @tax_details[:grand_total] %></p>
+          </div>
+        </div>
+
+        <%= hidden_field_tag 'order[total_price]', @tax_details[:grand_total] %>
+        <%= form.submit "Place Order", class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </div>
 </div>

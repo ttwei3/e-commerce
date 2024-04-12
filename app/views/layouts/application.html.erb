@@ -11,29 +11,51 @@
     <script src="https://js.stripe.com/v3/"></script>
   </head>
 
-  <body>
-    <% flash.each do |name, msg| %>
-      <%= content_tag(:div, msg, class: "flash #{name}") if msg.is_a?(String) %>
-    <% end %>
-    <nav>
-      <div>
+<body>
+  <% flash.each do |name, msg| %>
+    <%= content_tag(:div, msg, class: "flash #{name} alert alert-info") if msg.is_a?(String) %>
+  <% end %>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <%= link_to "Naian Bearings", root_path, class: "navbar-brand" %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><%= link_to "Products", products_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Shopping Cart", cart_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Orders", orders_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "About", static_page_path(identifier: "about_us"), class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Contact Us", static_page_path(identifier: "contact"), class: "nav-link" %></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <% if user_signed_in? %>
+      <div class="alert alert-success" role="alert">
+        Welcome, <%= current_user.email %>
         <div>
-          <%= link_to "Products", products_path %>
-          <%= link_to "Shopping Cart", cart_path %>
-          <%= link_to "Orders", orders_path %>
-          <%= link_to "About", static_page_path(identifier: "about_us") %>
-          <%= link_to "Contact Us", static_page_path(identifier: "contact") %>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-sm' %>
+          <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-info btn-sm' %>
         </div>
       </div>
-    </nav>
-    <% if user_signed_in? %>
-      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-      <p>Welcome, <%= current_user.email %></p>
-      <%= link_to 'Edit Profile', edit_user_registration_path %>
     <% else %>
-      <%= link_to 'Login', new_user_session_path %> |
-      <%= link_to 'Register', new_user_registration_path %>
+      <div class="btn-group">
+        <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
+        <%= link_to 'Register', new_user_registration_path, class: 'btn btn-secondary' %>
+      </div>
     <% end %>
+  </div>
+
+  <div class="container mt-4">
     <%= yield %>
-  </body>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </html>
